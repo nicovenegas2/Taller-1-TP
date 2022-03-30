@@ -10,6 +10,7 @@ using namespace std;
 #define OUT_DOOR 3
 #define WALL 1
 #define EMPTY 0
+#define SOLVED 4
 
 class Maze {
 public:
@@ -20,6 +21,7 @@ public:
     void generate(); // generate random maze
     float distance(int x, int y); // calculate distance between two points
     void visit(Node *node); // visit node
+    void markSolved(Node *node); // mark node as solved
 private:
     int dim;
     int **arr;

@@ -2,7 +2,7 @@
 
 
 Container::Container(int size) {
-    size = size;
+    Container::size = size;
     arr = new int*[size];
     for (int i = 0; i < size; i++) {
         arr[i] = new int[size];

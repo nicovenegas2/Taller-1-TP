@@ -1,7 +1,7 @@
 #include "Heap.h"
 
 Heap::Heap(int size) {
-    size = size;
+    Heap::size = size;
     count = 0;
     arr = new Node[size];
 }
@@ -11,7 +11,7 @@ Heap::~Heap() {
 }
 
 int Heap::getSize() {
-    return size;
+    return Heap::size;
 }
 
 void Heap::insert(Node *node) {
