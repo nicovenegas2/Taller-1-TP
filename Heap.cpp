@@ -81,7 +81,7 @@ void Heap::bubbleUp(){
     int parentIndex =  (index - 1) / 2;
     while (index > 0 &&
         parentIndex >= 0 && 
-        arr[index].getValue() > arr[parentIndex].getValue()) {
+        arr[index].getValue() < arr[parentIndex].getValue()) {
         swap(index, parentIndex);
         index = parentIndex;
         parentIndex =  (index - 1) / 2;
@@ -94,9 +94,9 @@ void Heap::bubbleDown(){
     int rightChildIndex = 2;
     while (leftChildIndex < count) {
         // Find the largest child for swapping
-        if (arr[leftChildIndex].getValue() > arr[index].getValue() || 
-            arr[rightChildIndex].getValue() > arr[index].getValue()) {
-            if (arr[leftChildIndex].getValue() > arr[rightChildIndex].getValue()) {
+        if (arr[leftChildIndex].getValue() < arr[index].getValue() || 
+            arr[rightChildIndex].getValue() < arr[index].getValue()) {
+            if (arr[leftChildIndex].getValue() < arr[rightChildIndex].getValue()) {
                 swap(index, leftChildIndex);
                 index = leftChildIndex; // Move to the left child
             } else {
