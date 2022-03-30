@@ -19,10 +19,12 @@ public:
     void solve(); // solve best path
     void generate(); // generate random maze
     float distance(int x, int y); // calculate distance between two points
+    void visit(Node *node); // visit node
 private:
     int dim;
     int **arr;
     int void_percentage;
     Container *visited;
-    Heap *heap;
+    Heap *porVisitar;
+    bool finished;
 };

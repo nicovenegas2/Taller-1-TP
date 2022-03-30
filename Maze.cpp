@@ -7,7 +7,8 @@ Maze::Maze(int dim, int p) {
     Maze::void_percentage=p;
     Maze::generate();
     Maze::visited = new Container(dim);
-    Maze::heap = new Heap(dim);
+    Maze::porVisitar = new Heap(dim);
+    Maze::finished = false;
 }
 
 Maze::~Maze() {
@@ -64,4 +65,38 @@ float Maze::distance(int x, int y) {
 void Maze::solve(){
     // set the entrance
     Node *root = new Node(0, 0, 0, NULL);
+    Node *current = root;
+
+    while(!porVisitar->isEmpty() || finished){
+
+    }
+}
+
+void Maze::visit(Node *nodeVisit){
+    int x = nodeVisit->get_i();
+    int y = nodeVisit->get_j();
+    if (arr[x][y] == OUT_DOOR) {
+        finished = true;
+        return;
+    }
+    else if (arr[x][y] == EMPTY){
+        visited->mark(x, y);
+        // visit all the neighbors
+        if (x > 0 && arr[x-1][y] == EMPTY && !visited->isMarked(x-1, y)) {
+            Node *node = new Node(x-1, y, distance(x-1, y), node);
+            porVisitar->insert(node);
+        }
+        if (x < dim-1 && arr[x+1][y] == EMPTY && !visited->isMarked(x-1, y)) {
+            Node *node = new Node(x+1, y, distance(x+1, y), node);
+            porVisitar->insert(node);
+        }
+        if (y > 0 && arr[x][y-1] == EMPTY && !visited->isMarked(x-1, y)) {
+            Node *node = new Node(x, y-1, distance(x, y-1), node);
+            porVisitar->insert(node);
+        }
+        if (y < dim-1 && arr[x][y+1] == EMPTY && !visited->isMarked(x-1, y)) {
+            Node *node = new Node(x, y+1, distance(x, y+1), node);
+             porVisitar->insert(node);
+        }
+    }
 }
