@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include "Container.h"
+#include "Heap.h"
 using namespace std;
 
 // best practice:
@@ -16,8 +18,11 @@ public:
     void print();
     void solve(); // solve best path
     void generate(); // generate random maze
+    float distance(int x, int y); // calculate distance between two points
 private:
     int dim;
     int **arr;
     int void_percentage;
+    Container *visited;
+    Heap *heap;
 };

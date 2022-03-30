@@ -1,10 +1,13 @@
 #include "Maze.h"
+#include <iostream>
 
 Maze::Maze(int dim, int p) {
     srand(time(NULL)); // set seed for random number generator
     Maze::dim = dim;
     Maze::void_percentage=p;
     Maze::generate();
+    Maze::visited = new Container(dim);
+    Maze::heap = new Heap(dim);
 }
 
 Maze::~Maze() {
@@ -52,7 +55,13 @@ void Maze::print() {
         }
         cout << endl;
     }
+}
 
+float Maze::distance(int x, int y) {
+    return sqrt(pow(x, 2) + pow(y, 2));
+}
 
-
+void Maze::solve(){
+    // set the entrance
+    Node *root = new Node(0, 0, 0, NULL);
 }
