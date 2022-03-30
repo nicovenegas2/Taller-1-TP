@@ -16,3 +16,8 @@ Node.o: Node.h Node.cpp
 run:
 	clear
 	./test
+
+go:
+	clear
+	make
+	make run

@@ -1,7 +1,7 @@
 #include "Maze.h"
 using namespace std;
 int main() {
-    Maze m(20, 60);
+    Maze m(450, 80);
     m.print();
     m.solve();
     return 0;

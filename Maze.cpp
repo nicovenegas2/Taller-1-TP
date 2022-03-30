@@ -56,7 +56,7 @@ void Maze::print() {
                     cout << " ";
                     break;
             }
-            cout << " "; 
+            // cout << " "; 
         }
         cout << endl;
     }
