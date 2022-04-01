@@ -19,7 +19,7 @@ public:
     void print();
     void solve(); // solve best path
     void generate(); // generate random maze
-    float distance(int x, int y); // calculate distance between two points
+    float distance(int x, int y, int x2, int y2); // calculate distance between two points
     void visit(Node *node); // visit node
     void markSolved(Node *node); // mark node as solved
 private:

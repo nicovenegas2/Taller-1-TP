@@ -56,14 +56,14 @@ void Maze::print() {
                     cout << " ";
                     break;
             }
-            // cout << " "; 
+            cout << " "; 
         }
         cout << endl;
     }
 }
 
-float Maze::distance(int x, int y) {
-    return sqrt(pow(x, 2) + pow(y, 2));
+float Maze::distance(int x, int y, int x2, int y2) {
+    return sqrt(pow(x-x2, 2) + pow(y-y2, 2));
 }
 
 void Maze::solve(){
@@ -94,27 +94,31 @@ void Maze::visit(Node *nodeVisit){
         finished = true;
         return;
     }
-    else if ((arr[x][y] == EMPTY || arr[x][y] == IN_DOOR) && !visited->isMarked(x, y)) {
+    else if ((arr[x][y] == EMPTY || arr[x][y] == IN_DOOR)){
         visited->mark(x, y);
         // visit all the neighbors
         if (x > 0 && (arr[x-1][y] == EMPTY || arr[x-1][y] ==OUT_DOOR) && !visited->isMarked(x-1, y)) {
-            Node *node = new Node(x-1, y, distance(x-1, y), nodeVisit);
+            Node *node = new Node(x-1, y, distance(x-1, y, dim-1, dim-1), nodeVisit);
             porVisitar->insert(node);
+            visited->mark(x-1, y);
             // cout << "Inserted: " << x-1 << " " << y << endl;
         }
         if (x < dim-1 && (arr[x+1][y] == EMPTY || arr[x+1][y] == OUT_DOOR) && !visited->isMarked(x+1, y)) {
-            Node *node = new Node(x+1, y, distance(x+1, y), nodeVisit);
+            Node *node = new Node(x+1, y, distance(x+1, y, dim-1, dim-1), nodeVisit);
             porVisitar->insert(node);
+            visited->mark(x+1, y);
             // cout << "Inserted: " << x+1 << " " << y << endl;
         }
         if (y > 0 && (arr[x][y-1] == EMPTY || arr[x][y-1] == OUT_DOOR )&& !visited->isMarked(x, y-1)) {
-            Node *node = new Node(x, y-1, distance(x, y-1), nodeVisit);
+            Node *node = new Node(x, y-1, distance(x, y-1, dim-1, dim-1), nodeVisit);
             porVisitar->insert(node);
+            visited->mark(x, y-1);
             // cout << "Inserted: " << x << " " << y-1 << endl;
         }
         if (y < dim-1 && (arr[x][y+1] == EMPTY || arr[x][y+1] == OUT_DOOR) && !visited->isMarked(x, y+1)) {
-            Node *node = new Node(x, y+1, distance(x, y+1), nodeVisit);
+            Node *node = new Node(x, y+1, distance(x, y+1, dim-1, dim-1), nodeVisit);
             porVisitar->insert(node);
+            visited->mark(x, y+1);
             // cout << "Inserted: " << x << " " << y+1 << endl;
         }
     }
