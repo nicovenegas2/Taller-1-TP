@@ -12,4 +12,5 @@ public:
     void mark(int i, int j);
     void unmark(int i, int j);
     bool isMarked(int i, int j);
+    void clear();
 };

@@ -43,3 +43,11 @@ bool Container::isMarked(int i, int j) {
     }
     return arr[i][j] == 1;
 }
+
+void Container::clear(){
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            arr[i][j] = 0;
+        }
+    }
+}

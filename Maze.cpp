@@ -5,10 +5,10 @@ Maze::Maze(int dim, int p) {
     srand(time(NULL)); // set seed for random number generator
     Maze::dim = dim;
     Maze::void_percentage=p;
-    Maze::generate();
     Maze::visited = new Container(dim);
     Maze::porVisitar = new Heap(pow(dim, 2));
     Maze::finished = false;
+    Maze::generate();
 }
 
 Maze::~Maze() {
@@ -19,18 +19,21 @@ Maze::~Maze() {
 }
 
 void Maze::generate() {
-    arr = new int*[dim];
+    Maze:: clearPorVisitar();
+    Maze:: clearVisited();
+    Maze:: finished = false;
+    Maze::arr = new int*[dim];
     for (int i = 0; i < dim; i++) {
-        arr[i] = new int[dim];
+        Maze::arr[i] = new int[dim];
         for (int j = 0; j < dim; j++) {
-            arr[i][j] = rand() % 100 < void_percentage ? EMPTY : WALL;
+            Maze::arr[i][j] = rand() % 100 < void_percentage ? EMPTY : WALL;
         }
     }
 
     // set the entrance and exit
     
-    arr[0][0] = IN_DOOR;
-    arr[dim-1][dim-1] = OUT_DOOR;
+    Maze::arr[0][0] = IN_DOOR;
+    Maze::arr[dim-1][dim-1] = OUT_DOOR;
 }
 
 void Maze::print() {
@@ -68,7 +71,7 @@ float Maze::distance(int x, int y, int x2, int y2) {
 
 void Maze::solve(){
     // set the entrance
-    Node *root = new Node(0, 0, 0, NULL);
+    Node *root = new Node(0, 0, 0," ", NULL);
     Node *current = root;
     visit(current);
     while(!porVisitar->isEmpty() && !finished){
@@ -77,12 +80,11 @@ void Maze::solve(){
     }
     if(!finished){
         cout << "Sin solucion" << endl;
-        cout << "ultimo camino visitado: " << current->getPath() << endl;
     }else {
         cout << "Solucion encontrada" << endl;
         cout << "Camino de solucion: " << current->getPath() << endl;
-        Maze::markSolved(current);
-        Maze::print();
+        // Maze::markSolved(current);
+        // Maze::print();
     }
 }
 
@@ -98,25 +100,25 @@ void Maze::visit(Node *nodeVisit){
         visited->mark(x, y);
         // visit all the neighbors
         if (x > 0 && (arr[x-1][y] == EMPTY || arr[x-1][y] ==OUT_DOOR) && !visited->isMarked(x-1, y)) {
-            Node *node = new Node(x-1, y, distance(x-1, y, dim-1, dim-1), nodeVisit);
+            Node *node = new Node(x-1, y, distance(x-1, y, dim-1, dim-1),"N", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x-1, y);
             // cout << "Inserted: " << x-1 << " " << y << endl;
         }
         if (x < dim-1 && (arr[x+1][y] == EMPTY || arr[x+1][y] == OUT_DOOR) && !visited->isMarked(x+1, y)) {
-            Node *node = new Node(x+1, y, distance(x+1, y, dim-1, dim-1), nodeVisit);
+            Node *node = new Node(x+1, y, distance(x+1, y, dim-1, dim-1),"S", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x+1, y);
             // cout << "Inserted: " << x+1 << " " << y << endl;
         }
         if (y > 0 && (arr[x][y-1] == EMPTY || arr[x][y-1] == OUT_DOOR )&& !visited->isMarked(x, y-1)) {
-            Node *node = new Node(x, y-1, distance(x, y-1, dim-1, dim-1), nodeVisit);
+            Node *node = new Node(x, y-1, distance(x, y-1, dim-1, dim-1),"W", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x, y-1);
             // cout << "Inserted: " << x << " " << y-1 << endl;
         }
         if (y < dim-1 && (arr[x][y+1] == EMPTY || arr[x][y+1] == OUT_DOOR) && !visited->isMarked(x, y+1)) {
-            Node *node = new Node(x, y+1, distance(x, y+1, dim-1, dim-1), nodeVisit);
+            Node *node = new Node(x, y+1, distance(x, y+1, dim-1, dim-1),"E", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x, y+1);
             // cout << "Inserted: " << x << " " << y+1 << endl;
@@ -135,4 +137,14 @@ void Maze::markSolved(Node *node){
         arr[x][y] = SOLVED;
         current = current->getPrevious();
     }
+}
+
+void Maze::clearPorVisitar(){
+    cout << "Limpiando por visitar" << endl;
+    porVisitar->clear();
+}
+
+void Maze::clearVisited(){
+    cout << "Limpiando visitados" << endl;
+    visited->clear();
 }

@@ -1,4 +1,6 @@
 #include "Node.h"
+#include <iostream>
+#include <string>
 
 Node::Node() {
     this->i = 0;
@@ -14,13 +16,15 @@ Node::Node(Node* node) {
     this->value = node->value;
     this->depth = node->depth;
     this->previous = node->previous;
+    this->path = node->path;
 }
 
-Node::Node(int i, int j, int value, Node* parent) {
+Node::Node(int i, int j, int value,string path, Node* parent) {
     this->i = i;
     this->j = j;
     this->value = value;
     this->previous = parent;
+    this->path = path;
 }
 
 Node::~Node () {
@@ -64,9 +68,11 @@ int Node::getDepth() {
 
 // the path from the root to the current node as a string
 string Node::getPath() {
-    string s="("+to_string(this->i)+","+to_string(this->j)+")";
-    if (this->previous != NULL) {
-        s=s+this->previous->getPath();
+    Node* current = this;
+    string s = "";
+    while(current != NULL) {
+        s = current->path + s;
+        current = current->previous;
     }
     return(s); 
 }

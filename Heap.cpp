@@ -112,3 +112,7 @@ void Heap::bubbleDown(){
     }
 }
 
+void Heap::clear() {
+    count = 0;
+}
+

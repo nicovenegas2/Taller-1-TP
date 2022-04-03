@@ -22,6 +22,8 @@ public:
     float distance(int x, int y, int x2, int y2); // calculate distance between two points
     void visit(Node *node); // visit node
     void markSolved(Node *node); // mark node as solved
+    void clearVisited(); // clear visited nodes
+    void clearPorVisitar(); // clear por visitar nodes
 private:
     int dim;
     int **arr;

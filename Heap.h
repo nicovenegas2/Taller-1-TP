@@ -16,6 +16,7 @@ public:
     int peek();
     int getSize();
     void print();
+    void clear();
 private:
     Node *arr;
     int size;

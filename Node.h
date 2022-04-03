@@ -8,7 +8,7 @@ public:
     Node();
     ~Node();
     Node(Node* node);
-    Node(int i, int j, int value, Node* previous);
+    Node(int i, int j, int value, string path, Node* previous);
 
     // NOT best practice to have a getter for the private member!
     int get_i();
@@ -32,7 +32,7 @@ private:
     int j; // column
     int value; // a value representing a cost for choosing this node
     int depth; // the depth of this node in the tree
-
+    string path; // the path from root to this node
     // structural variables: meaning relationships between nodes
     Node *previous; // the previous node in the path
 };  // end class Node
