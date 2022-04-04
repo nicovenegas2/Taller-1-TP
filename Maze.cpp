@@ -144,12 +144,10 @@ void Maze::markSolved(Node *node){
 }
 
 void Maze::clearPorVisitar(){
-    cout << "Limpiando por visitar" << endl;
     porVisitar->clear();
 }
 
 void Maze::clearVisited(){
-    cout << "Limpiando visitados" << endl;
     visited->clear();
 }
 

@@ -23,8 +23,9 @@ int main(){
     }
     cout << endl << endl;
     cout << "Dimesion: " << dim << "x" << dim << endl;
-    cout <<"Total laberinths: "<< i << " Total time: " << t3 / (double)CLOCKS_PER_SEC << endl;
-    cout << "Average time: " << t3 / (double)CLOCKS_PER_SEC / i << endl;
+    cout <<"Total laberinths: "<< i <<endl;
+    cout << "Total time of solutions: " << t3 / (double)CLOCKS_PER_SEC << "[s]"<< endl;
+    cout << "Average time: " << t3 / (double)CLOCKS_PER_SEC / i << "[s]" << endl;
 
     return 0;
 }
