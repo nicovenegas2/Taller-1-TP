@@ -1,5 +1,6 @@
 #include "Maze.h"
 #include <iostream>
+#include <ctime>
 using namespace std;
 Maze::Maze(int dim, int p) {
     srand(time(NULL)); // set seed for random number generator
@@ -69,7 +70,7 @@ float Maze::distance(int x, int y, int x2, int y2) {
     return sqrt(pow(x-x2, 2) + pow(y-y2, 2));
 }
 
-void Maze::solve(){
+void Maze::solve(bool show){
     // set the entrance
     Node *root = new Node(0, 0, 0," ", NULL);
     Node *current = root;
@@ -87,8 +88,11 @@ void Maze::solve(){
     }else {
         cout << "Solucion encontrada" << endl;
         cout << "Camino de solucion: " << current->getPath() << endl;
-        // Maze::markSolved(current);
-        // Maze::print();
+        if(show){
+            Maze::markSolved(current);
+            Maze::print();
+        }
+        
     }
 }
 

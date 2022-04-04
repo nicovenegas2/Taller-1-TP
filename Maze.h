@@ -17,7 +17,7 @@ public:
     Maze(int dim, int p);
     ~Maze();
     void print();
-    void solve(); // solve best path
+    void solve(bool show); // solve best path
     void generate(); // generate random maze
     float distance(int x, int y, int x2, int y2); // calculate distance between two points
     void visit(Node *node); // visit node
