@@ -24,6 +24,7 @@ public:
     void markSolved(Node *node); // mark node as solved
     void clearVisited(); // clear visited nodes
     void clearPorVisitar(); // clear por visitar nodes
+    bool closeOut(); // close door
 private:
     int dim;
     int **arr;

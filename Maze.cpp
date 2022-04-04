@@ -74,10 +74,14 @@ void Maze::solve(){
     Node *root = new Node(0, 0, 0," ", NULL);
     Node *current = root;
     visit(current);
-    while(!porVisitar->isEmpty() && !finished){
+    if (!Maze::closeOut())
+    {
+        while(!porVisitar->isEmpty() && !finished){
         current = porVisitar->pull();
         visit(current);
+        }
     }
+    
     if(!finished){
         cout << "Sin solucion" << endl;
     }else {
@@ -147,4 +151,12 @@ void Maze::clearPorVisitar(){
 void Maze::clearVisited(){
     cout << "Limpiando visitados" << endl;
     visited->clear();
+}
+
+bool Maze::closeOut(){
+    if(arr[dim-2][dim-1] == WALL && arr[dim-1][dim-2] == WALL){
+        return true;
+    }
+
+    return false;
 }
