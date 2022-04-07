@@ -4,7 +4,8 @@
 using namespace std;
 
 /*
-Please document your code here.
+clase heap que contiene una lista de nodos
+y los ordena de menor a mayor dependiendo de su atributo value
 */    
 class Heap {
 public:

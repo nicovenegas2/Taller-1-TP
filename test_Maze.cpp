@@ -6,9 +6,10 @@ using namespace std;
 
 
  int main() {
-     Maze m(100, 80);
-     m.print();
-     m.solve(true);
-     return 0;
+    cout << "-------------- Start test Maze --------------" << endl;
+    Maze m(30, 90);
+    m.print();
+    m.solve(true);
+    return 0;
 
  }

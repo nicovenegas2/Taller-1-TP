@@ -1,5 +1,10 @@
 #include <iostream>
 
+/*
+clase container que posee una matriz de enteros
+y nos indica si una posicion esta ocupada o no
+*/    
+
 class Container
 {
 private:

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <ctime>
 using namespace std;
+
+// contruimos un laberinto y lo generamos
 Maze::Maze(int dim, int p) {
     srand(time(NULL)); // set seed for random number generator
     Maze::dim = dim;
@@ -19,13 +21,15 @@ Maze::~Maze() {
     delete[] arr;
 }
 
+
+// generamos el laberinto
 void Maze::generate() {
-    Maze:: clearPorVisitar();
-    Maze:: clearVisited();
+    Maze:: clearPorVisitar();  //
+    Maze:: clearVisited();     //limpiamos los contenedores por una posible reutilizacion
     Maze:: finished = false;
     Maze::arr = new int*[dim];
     for (int i = 0; i < dim; i++) {
-        Maze::arr[i] = new int[dim];
+        Maze::arr[i] = new int[dim];         // rellenamos el array con numeros aleatorios
         for (int j = 0; j < dim; j++) {
             Maze::arr[i][j] = rand() % 100 < void_percentage ? EMPTY : WALL;
         }
@@ -37,6 +41,9 @@ void Maze::generate() {
     Maze::arr[dim-1][dim-1] = OUT_DOOR;
 }
 
+
+
+// impresion del laberinto
 void Maze::print() {
     for (int i = 0; i < Maze::dim; i++) {
         for (int j = 0; j < Maze::dim; j++) {
@@ -70,11 +77,13 @@ float Maze::distance(int x, int y, int x2, int y2) {
     return sqrt(pow(x-x2, 2) + pow(y-y2, 2));
 }
 
+
+// resolucion de laberinto
 void Maze::solve(bool show){
     // set the entrance
     Node *root = new Node(0, 0, 0," ", NULL);
     Node *current = root;
-    visit(current);
+    visit(current);         
     if (!Maze::closeOut())
     {
         while(!porVisitar->isEmpty() && !finished){
@@ -96,6 +105,8 @@ void Maze::solve(bool show){
     }
 }
 
+
+// visitamos un nodo para agregar sus posibles movimientos a los contenedores
 void Maze::visit(Node *nodeVisit){
     int x = nodeVisit->get_i();
     int y = nodeVisit->get_j();
@@ -104,28 +115,28 @@ void Maze::visit(Node *nodeVisit){
         finished = true;
         return;
     }
-    else if ((arr[x][y] == EMPTY || arr[x][y] == IN_DOOR)){
+    else if ((arr[x][y] == EMPTY || arr[x][y] == IN_DOOR)){ 
         visited->mark(x, y);
         // visit all the neighbors
-        if (x > 0 && (arr[x-1][y] == EMPTY || arr[x-1][y] ==OUT_DOOR) && !visited->isMarked(x-1, y)) {
+        if (x > 0 && (arr[x-1][y] == EMPTY || arr[x-1][y] ==OUT_DOOR) && !visited->isMarked(x-1, y)) { //chequeamos abajo
             Node *node = new Node(x-1, y, distance(x-1, y, dim-1, dim-1),"N", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x-1, y);
             // cout << "Inserted: " << x-1 << " " << y << endl;
         }
-        if (x < dim-1 && (arr[x+1][y] == EMPTY || arr[x+1][y] == OUT_DOOR) && !visited->isMarked(x+1, y)) {
+        if (x < dim-1 && (arr[x+1][y] == EMPTY || arr[x+1][y] == OUT_DOOR) && !visited->isMarked(x+1, y)) { // chequeamos arriba
             Node *node = new Node(x+1, y, distance(x+1, y, dim-1, dim-1),"S", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x+1, y);
             // cout << "Inserted: " << x+1 << " " << y << endl;
         }
-        if (y > 0 && (arr[x][y-1] == EMPTY || arr[x][y-1] == OUT_DOOR )&& !visited->isMarked(x, y-1)) {
+        if (y > 0 && (arr[x][y-1] == EMPTY || arr[x][y-1] == OUT_DOOR )&& !visited->isMarked(x, y-1)) { // chequeamos izquierda
             Node *node = new Node(x, y-1, distance(x, y-1, dim-1, dim-1),"W", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x, y-1);
             // cout << "Inserted: " << x << " " << y-1 << endl;
         }
-        if (y < dim-1 && (arr[x][y+1] == EMPTY || arr[x][y+1] == OUT_DOOR) && !visited->isMarked(x, y+1)) {
+        if (y < dim-1 && (arr[x][y+1] == EMPTY || arr[x][y+1] == OUT_DOOR) && !visited->isMarked(x, y+1)) { // chequeamos derecha
             Node *node = new Node(x, y+1, distance(x, y+1, dim-1, dim-1),"E", nodeVisit);
             porVisitar->insert(node);
             visited->mark(x, y+1);
@@ -135,7 +146,7 @@ void Maze::visit(Node *nodeVisit){
 }
 
 
-
+// hacemos el camino de vuelta para poder imprimirlo en rojo
 void Maze::markSolved(Node *node){
     int x,y;
     Node *current = node;
@@ -147,14 +158,17 @@ void Maze::markSolved(Node *node){
     }
 }
 
+
 void Maze::clearPorVisitar(){
     porVisitar->clear();
 }
-
+                                    // limpiamos contenedores
 void Maze::clearVisited(){
     visited->clear();
 }
 
+
+// chequeamos si el laberinto esta cerrado por defecto
 bool Maze::closeOut(){
     if(arr[dim-2][dim-1] == WALL && arr[dim-1][dim-2] == WALL){
         return true;

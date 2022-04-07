@@ -1,9 +1,15 @@
 hello: main test
 
-test: Maze.o Heap.o Node.o Container.o test_Maze.cpp test_Heap.cpp test_Node.cpp test_Container.cpp
-	g++ Maze.o Heap.o Node.o Container.o test_Maze.cpp -o test
+test: Maze.o Heap.o Node.o Container.o test_Maze.cpp test_Node.cpp test_Container.cpp
+	g++ Maze.o Heap.o Node.o Container.o test_Maze.cpp -o test_Maze
 	g++ Container.o test_Container.cpp -o test_Container
+	g++ Node.o test_Node.cpp -o test_Node
 
+
+runTest: test_Container test_Node test_Maze
+	./test_Container
+	./test_Node
+	./test_Maze
 
 main: Maze.o Heap.o Node.o Container.o main.cpp
 	g++ Maze.o Heap.o Node.o Container.o main.cpp -o main
@@ -21,10 +27,4 @@ Node.o: Node.h Node.cpp
 	g++ -c Node.cpp
 
 run:
-	clear
 	./main
-
-go:
-	clear
-	make
-	./test

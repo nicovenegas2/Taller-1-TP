@@ -2,7 +2,10 @@
 
 using namespace std;
 
-// needs an explanation of the class, please always comment your code
+/*
+clase Nodo que contiene una posicion x,y
+un valor y una referencia al nodo padre
+*/    
 class Node {
 public:
     Node();

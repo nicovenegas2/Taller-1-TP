@@ -5,6 +5,13 @@
 #include "Heap.h"
 using namespace std;
 
+
+/*
+clase Maze, genera un laberinto aleatorio
+ donde es posible imprimirlo, resolverlo y volver a imprimirlo con el
+ camino de salida en rojo
+*/    
+
 // best practice:
 #define IN_DOOR 2
 #define OUT_DOOR 3
@@ -26,10 +33,10 @@ public:
     void clearPorVisitar(); // clear por visitar nodes
     bool closeOut(); // close door
 private:
-    int dim;
-    int **arr;
-    int void_percentage;
-    Container *visited;
-    Heap *porVisitar;
-    bool finished;
+    int dim; // dimension of maze
+    int **arr; // array of ints
+    int void_percentage; // percentage of void
+    Container *visited; // contenedor de posiciones visitados
+    Heap *porVisitar; // heap de posiciones por visitar
+    bool finished; // finished solving
 };
